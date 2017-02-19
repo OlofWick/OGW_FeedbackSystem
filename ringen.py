@@ -40,13 +40,17 @@ class sensorReader (threading.Thread):
 
 semaphore = threading.Lock()
 
+threads = []
+
 grp1Reader = sensorReader(1, 'vxlgrp0-1.local')
-grp3Reader = sensorReader(1, 'vxlgrp0-3.local')
+threads.append(grp1Reader)
+grp3Reader = sensorReader(3, 'vxlgrp0-3.local')
+threads.append(grp3Reader)
 
-grp1Reader.start()
-grp3Reader.start()
+for t in threads:
+   t.start()
 
-grp1Reader.join()
-grp3Reader.join()
+for t in threads:
+   t.join()
 
 print ("Exiting ringen.py")
