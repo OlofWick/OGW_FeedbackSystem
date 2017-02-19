@@ -44,21 +44,24 @@ class displayUpdater (threading.Thread):
 
     def __init__(self):
         threading.Thread.__init__(self)
-        localDict = {}
 
     def run(self):
+        localDict = {}
         while True:
             semaphore.acquire()
             # Don't lock common data longer than necessary
             # Probably not needed but I do it for the style
             localDict = copy.deepcopy(routeDict)
             semaphore.release()
-            
+
             for i in localDict.keys():
-                print (localDict[i]["Name"])
                 for j in localDict[i].keys():
-                    print (i, j, " = ", localDict[i][j])
-            time.sleep(5) 
+                    if "Rou" in j :
+                        self.updateDisp(localDict[i]["Name"], j, localDict[i][j])
+            time.sleep(5) # Update display every 5s
+
+    def updateDisp(self, grp, route, state):
+        print (grp, route, state)
 
 ######################################################################
 # Global variables
@@ -69,8 +72,11 @@ threads = []
 
 ######################################################################
 # Main
+
 threads.append(sensorReader(1, 'vxlgrp0-1.local'))
+#threads.append(sensorReader(2, 'vxlgrp0-2.local'))
 threads.append(sensorReader(3, 'vxlgrp0-3.local'))
+#threads.append(sensorReader(4, 'vxlgrp0-4.local'))
 threads.append(displayUpdater())
 
 for t in threads:
