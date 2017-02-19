@@ -4,6 +4,7 @@ import requests
 import json
 import threading
 
+######################################################################
 class sensorReader (threading.Thread):
 
     def __init__(self, threadID, name):
@@ -32,20 +33,38 @@ class sensorReader (threading.Thread):
                 time.sleep (10) # Sleep 10s and try again
             else:
                 semaphore.acquire()
-                print (r.status_code)
-                print (r.json())
-                print (r.json()['SW_Version'])
+                routeDict[self.name] = r.json()
+                print (self.name, r.status_code, sep=':')
                 semaphore.release()
                 time.sleep(15) # Poll every 15s
 
-semaphore = threading.Lock()
+######################################################################
+class displayUpdater (threading.Thread):
 
+    def __init__(self):
+        threading.Thread.__init__(self)
+
+    def run(self):
+        while True:
+            semaphore.acquire()
+            iterator = routeDict.keys()
+            for s in iterator:
+                print (routeDict[s]["Name"])
+            semaphore.release()
+            time.sleep(5) 
+
+######################################################################
+# Global variables
+
+semaphore = threading.Lock()
+routeDict = {}
 threads = []
 
-grp1Reader = sensorReader(1, 'vxlgrp0-1.local')
-threads.append(grp1Reader)
-grp3Reader = sensorReader(3, 'vxlgrp0-3.local')
-threads.append(grp3Reader)
+######################################################################
+# Main
+threads.append(sensorReader(1, 'vxlgrp0-1.local'))
+threads.append(sensorReader(3, 'vxlgrp0-3.local'))
+threads.append(displayUpdater())
 
 for t in threads:
    t.start()
