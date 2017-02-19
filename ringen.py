@@ -3,6 +3,7 @@ import socket
 import requests
 import json
 import threading
+import copy
 
 ######################################################################
 class sensorReader (threading.Thread):
@@ -43,14 +44,20 @@ class displayUpdater (threading.Thread):
 
     def __init__(self):
         threading.Thread.__init__(self)
+        localDict = {}
 
     def run(self):
         while True:
             semaphore.acquire()
-            iterator = routeDict.keys()
-            for s in iterator:
-                print (routeDict[s]["Name"])
+            # Don't lock common data longer than necessary
+            # Probably not needed but I do it for the style
+            localDict = copy.deepcopy(routeDict)
             semaphore.release()
+            
+            for i in localDict.keys():
+                print (localDict[i]["Name"])
+                for j in localDict[i].keys():
+                    print (i, j, " = ", localDict[i][j])
             time.sleep(5) 
 
 ######################################################################
