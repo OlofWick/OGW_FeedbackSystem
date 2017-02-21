@@ -1,9 +1,19 @@
+## This code only works if avahi is running on the Raspberry
+# sudo apt-get update
+# sudo apt-get install avahi-daemon
+# sudo apt-get install libnss-mdns
+# sudo insserv avahi-daemon
+# sudo systemctl enable avahi-daemon
+
+
+######################################################################
 import time
 import socket
 import requests
 import json
 import threading
 import copy
+import ringenDisp
 
 ######################################################################
 class sensorReader (threading.Thread):
@@ -21,7 +31,7 @@ class sensorReader (threading.Thread):
             except (socket.timeout, socket.gaierror, socket.herror) as e:
                 print ("Sensor " + self.name +  ": IP address lookup error. Retrying...")
                 print (e)
-                time.sleep(30) # Sleep 30s if we couldn't find the host and then try again
+                time.sleep(10) # Sleep 10s if we couldn't find the host and then try again
             else:
                 print("Sensor " + self.name +  " has IP address " + self.ip)
 
