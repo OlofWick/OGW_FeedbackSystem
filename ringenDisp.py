@@ -55,7 +55,7 @@ class Route:
         self.canvas.itemconfig(self.canvasId, fill='green yellow')
         self.canvas.tag_raise(self.canvasId)
 
-    def setUnknow(self):
+    def setUnknown(self):
         self.canvas.itemconfig(self.canvasId, fill='gray42')
         self.canvas.tag_lower(self.canvasId)
 
@@ -72,7 +72,6 @@ class RingenRoutes:
         ZERO = LINE_WIDTH // 2
         X = (self.canvas.getWidth() // HS)
         Y = (self.canvas.getHeight() // VS)
-        print("XY", X,Y)
         
         #VxlGrp1
         points = [(ZERO,Y),(X,ZERO), (2*X,ZERO), (3*X, ZERO), (4*X, ZERO)]
@@ -164,9 +163,12 @@ class RingenRoutes:
         self.routes[groupId][routeId].setBlocked()
     def free(self, groupId, routeId):
         self.routes[groupId][routeId].setFree()
-    def unknown(self, groupId, routeId):
-        self.routes[groupId][routeId].setUnknown()
-
+    def unknown(self, groupId):
+        for i in range(5):
+            if isinstance(self.routes[groupId][i], Route):
+                self.routes[groupId][i].setUnknown()
+                
+######################################################################
 class layoutWindow:
     def __init__(self, windowTitle):
         self.root = tk.Tk()
@@ -205,9 +207,9 @@ class layoutWindow:
         return self.routes
     def getRoot(self):
         return self.root
+    def getStatusLbls(self):
+        return self.statusLbls
 
-    def update(self):
-        self.root.update()
 
 ######################################################################
 if __name__ == '__main__':
@@ -221,9 +223,6 @@ if __name__ == '__main__':
     routes.blocked(2,4)
 
     a, h = w.getRoot().maxsize()
-    print(w.getRoot().winfo_screenwidth(), w.getRoot().winfo_screenheight())
-    print(w.getRoot().winfo_vrootwidth(), w.getRoot().winfo_vrootheight())
-    print(a, h)
     
     w.getRoot().mainloop()
 
