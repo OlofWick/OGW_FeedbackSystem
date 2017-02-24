@@ -74,13 +74,13 @@ class RingenRoutes:
         Y = (self.canvas.getHeight() // VS)
         
         #VxlGrp1
-        points = [(ZERO,Y),(X,ZERO), (2*X,ZERO), (3*X, ZERO), (4*X, ZERO)]
+        points = [(ZERO,Y+ZERO), (ZERO,Y),(X,ZERO), (2*X,ZERO), (3*X, ZERO), (4*X, ZERO)]
         self.routes[1][1] = Route(self.canvas, points)
 
-        points = [(X,Y),(2*X,ZERO), (3*X, ZERO), (4*X, ZERO)]
+        points = [(X,Y+ZERO), (X,Y),(2*X,ZERO), (3*X, ZERO), (4*X, ZERO)]
         self.routes[1][2] = Route(self.canvas, points)
 
-        points = [(2*X,Y), (3*X, ZERO), (4*X, ZERO)]
+        points = [(2*X,Y+ZERO), (2*X,Y), (3*X, ZERO), (4*X, ZERO)]
         self.routes[1][3] = Route(self.canvas, points)
 
         points = [(3*X,2*Y),(3*X,Y), (4*X, ZERO)]
@@ -96,10 +96,12 @@ class RingenRoutes:
         points = [(2*X,(VS-1)*Y),(3*X,(VS-1)*Y), (4*X,(VS-1)*Y),(5*X,(VS-1)*Y)]
         self.routes[2][3] = Route(self.canvas, points)
 
-        points = [(2*X,(VS-3)*Y),(3*X,(VS-2)*Y), (4*X,(VS-1)*Y),(5*X,(VS-1)*Y)]
+        points = [(2*X,(VS-3)*Y-ZERO), (2*X,(VS-3)*Y),(3*X,(VS-2)*Y), \
+                  (4*X,(VS-1)*Y),(5*X,(VS-1)*Y)]
         self.routes[2][4] = Route(self.canvas, points)
 
-        points = [(2*X,(VS-3)*Y),(3*X,(VS-2)*Y), (4*X,(VS-2)*Y),(5*X,(VS-3)*Y)]
+        points = [(2*X,(VS-3)*Y-ZERO), (2*X,(VS-3)*Y),(3*X,(VS-2)*Y), \
+                  (4*X,(VS-2)*Y),(5*X,(VS-3)*Y)]
         self.routes[2][5] = Route(self.canvas, points)
 
         #VxlGrp3
@@ -109,7 +111,8 @@ class RingenRoutes:
         points = [((HS-2)*X,(VS*Y - ZERO)), ((HS-3)*X,(VS-1)*Y)]
         self.routes[3][2] = Route(self.canvas, points)
 
-        points = [((HS-1)*X,(VS-2)*Y), ((HS-2)*X,(VS-1)*Y), ((HS-3)*X,(VS-1)*Y)]
+        points = [((HS-1)*X,(VS-2)*Y-ZERO), ((HS-1)*X,(VS-2)*Y), ((HS-2)*X,(VS-1)*Y), \
+                  ((HS-3)*X,(VS-1)*Y)]
         self.routes[3][3] = Route(self.canvas, points)
 
         points = [((HS-3)*X,(VS-1)*Y), ((HS-4)*X,(VS-1)*Y)]
@@ -119,10 +122,10 @@ class RingenRoutes:
         self.routes[3][5] = Route(self.canvas, points)
 
         #VxlGrp4
-        points = [((HS*X-ZERO),Y),((HS-1)*X,ZERO), ((HS-2)*X,ZERO)]
+        points = [((HS*X-ZERO),Y+ZERO),((HS*X-ZERO),Y),((HS-1)*X,ZERO), ((HS-2)*X,ZERO)]
         self.routes[4][1] = Route(self.canvas, points)
 
-        points = [((HS-1)*X,Y), ((HS-2)*X,ZERO)]
+        points = [((HS-1)*X,Y+ZERO), ((HS-1)*X,Y), ((HS-2)*X,ZERO)]
         self.routes[4][2] = Route(self.canvas, points)
 
         #Intermediate tracks
