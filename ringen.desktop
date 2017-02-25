@@ -1,0 +1,11 @@
+# Copy this file to .config/autostart to start the application automatically
+# at boot
+[Desktop Entry]
+Encoding=UTF-8
+Type=Application
+Name=Ringen>
+Comment=
+Exec= python3 /home/pi/OGW_FeedbackSystem/ringen.py &
+StartupNotify=false
+Terminal=true
+Hidden=false
