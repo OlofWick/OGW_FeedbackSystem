@@ -1,4 +1,5 @@
 import tkinter as tk
+import sys
 
 ######################################################################
 # CONSTANTS
@@ -187,6 +188,9 @@ class layoutWindow:
         self.root.configure(background='dark green')
         self.root.update_idletasks() # Needed to update sizes so we can use them below    
         
+        # It is nice to have a way to stop the program
+        self.root.bind('<Escape>', self.escQuits)
+            
         # Add widgets
         self.canvas = TurnoutCnv(self.root, width = self.root.winfo_width(),\
                                  height = self.root.winfo_height() - STATUS_ROW_HEIGHT)
@@ -204,7 +208,7 @@ class layoutWindow:
         # Draw routes
         self.routes = RingenRoutes(self.canvas)
         self.routes.draw()
-            
+        
     # Getters and setters
     def getRoutes(self):
         return self.routes
@@ -212,6 +216,10 @@ class layoutWindow:
         return self.root
     def getStatusLbls(self):
         return self.statusLbls
+    
+    # Callback function that exit the program
+    def escQuits(event):
+        sys.exit()
 
 
 ######################################################################
