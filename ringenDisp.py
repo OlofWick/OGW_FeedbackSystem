@@ -53,7 +53,7 @@ class Route:
         self.canvas.tag_lower(self.canvasId)
 
     def setFree(self):
-        self.canvas.itemconfig(self.canvasId, fill='green yellow')
+        self.canvas.itemconfig(self.canvasId, fill='lawn green')
         self.canvas.tag_raise(self.canvasId)
 
     def setUnknown(self):
