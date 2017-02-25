@@ -1,5 +1,4 @@
 import tkinter as tk
-import sys
 
 ######################################################################
 # CONSTANTS
@@ -218,8 +217,8 @@ class layoutWindow:
         return self.statusLbls
     
     # Callback function that exit the program
-    def escQuits(event):
-        sys.exit()
+    def escQuits(self, event):
+        self.root.destroy()
 
 
 ######################################################################

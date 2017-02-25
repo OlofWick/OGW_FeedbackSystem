@@ -24,9 +24,10 @@ class sensorReader (threading.Thread):
         self.name = name
         self.ip = None
         self.connected = False
+        self.keepOn = True
 
     def run(self):
-        while self.ip is None :
+        while (self.ip is None) and self.keepOn:
             try:
                 self.ip = socket.gethostbyname(self.name)
             except (socket.timeout, socket.gaierror, socket.herror) as e:
@@ -36,7 +37,7 @@ class sensorReader (threading.Thread):
             else:
                 print("Sensor " + self.name +  " has IP address " + self.ip)
 
-        while True:
+        while self.keepOn:
             try:
                 r = requests.get("http://" + self.ip)
             except Exception as e:
@@ -50,6 +51,10 @@ class sensorReader (threading.Thread):
                 routeDict[self.name] = r.json()
                 semaphore.release()
                 time.sleep(10) # Poll every 10s
+        print("Sensor thread ", self.name, " terminated")
+
+    def stop(self):
+        self.keepOn = False
 
     def isConnected(self):
         return self.connected
@@ -122,4 +127,14 @@ if __name__ == '__main__':
     # Register a function that will be called regularly and start mainloop
     win.getRoot().after(10000, updateDisp)
     win.getRoot().mainloop()
+
+
+    # We have exited the mainloop and it is time to close all threads
+    # Send a stop signal to all threads
+    for s in sensors:
+       s.stop()
+    # Wait for all threads to complete
+    for s in sensors:
+        s.join()
+    print ("Exiting Main Thread")
     
