@@ -25,7 +25,8 @@ class StatusLbl (tk.Label) :
         t = self.grpName + " off-line"
         self.configure(text=t)
         self.configure(background='red')
-        
+
+
 ######################################################################
 class TurnoutCnv (tk.Canvas) :
     def __init__(self, *args, **kwargs):
