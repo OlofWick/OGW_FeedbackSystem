@@ -36,7 +36,7 @@ class sensorReader (threading.Thread):
             except (socket.timeout, socket.gaierror, socket.herror) as e:
                 print ("Sensor " + self.name +  ": IP address lookup error. Retrying...")
                 print (e)
-                time.sleep(10) # Sleep 10s if we couldn't find the host and then try again
+                time.sleep(5) # Sleep 10s if we couldn't find the host and then try again
             else:
                 print("Sensor " + self.name +  " has IP address " + self.ip)
 
@@ -47,13 +47,13 @@ class sensorReader (threading.Thread):
                 print("Sensor " + self.name + " at IP " + self.ip + " not available. Retrying")
                 print(e)
                 self.connected = False
-                time.sleep (10) # Sleep 10s and try again
+                time.sleep (5) # Sleep 10s and try again
             else:
                 self.connected = True
                 semaphore.acquire()
                 routeDict[self.name] = r.json()
                 semaphore.release()
-                time.sleep(10) # Poll every 10s
+                time.sleep(5) # Poll every 10s
         print("Sensor thread ", self.name, " terminated")
 
     def stop(self):

@@ -109,27 +109,30 @@ class RingenRoutes:
         self.routes[2][5] = Route(self.canvas, points)
 
         #VxlGrp3
-        points = [((HS-2)*X,(VS*Y - ZERO)), ((HS-3)*X,(VS*Y - ZERO))]
+        points = [((HS-2)*X+ZERO,(VS*Y - ZERO)), ((HS-3)*X,(VS*Y - ZERO))]
         self.routes[3][1] = Route(self.canvas, points)
 
-        points = [((HS-2)*X,(VS*Y - ZERO)), ((HS-3)*X,(VS-1)*Y)]
+        points = [((HS-2)*X+ZERO,(VS*Y - ZERO)), ((HS-2)*X,(VS*Y - ZERO)), \
+                  ((HS-3)*X,(VS-1)*Y), ((HS-3)*X-ZERO,(VS-1)*Y)]
         self.routes[3][2] = Route(self.canvas, points)
 
         points = [((HS-1)*X,(VS-2)*Y-ZERO), ((HS-1)*X,(VS-2)*Y), ((HS-2)*X,(VS-1)*Y), \
-                  ((HS-3)*X,(VS-1)*Y)]
+                  ((HS-3)*X-ZERO,(VS-1)*Y)]
         self.routes[3][3] = Route(self.canvas, points)
 
-        points = [((HS-3)*X,(VS-1)*Y), ((HS-4)*X,(VS-1)*Y)]
+        points = [((HS-3)*X-ZERO,(VS-1)*Y), ((HS-4)*X,(VS-1)*Y)]
         self.routes[3][4] = Route(self.canvas, points)
 
-        points = [((HS-4)*X,(VS-1)*Y), ((HS-3)*X,(VS-2)*Y)]
+        points = [((HS-4)*X-ZERO,(VS-1)*Y), ((HS-4)*X,(VS-1)*Y), ((HS-3)*X,(VS-2)*Y)]
         self.routes[3][5] = Route(self.canvas, points)
 
         #VxlGrp4
-        points = [((HS*X-ZERO),Y+ZERO),((HS*X-ZERO),Y),((HS-1)*X,ZERO), ((HS-2)*X,ZERO)]
+        points = [((HS*X-ZERO),Y+ZERO),((HS*X-ZERO),Y),((HS-1)*X,ZERO), \
+                  ((HS-2)*X-ZERO,ZERO)]
         self.routes[4][1] = Route(self.canvas, points)
 
-        points = [((HS-1)*X,Y+ZERO), ((HS-1)*X,Y), ((HS-2)*X,ZERO)]
+        points = [((HS-1)*X,Y+ZERO), ((HS-1)*X,Y), ((HS-2)*X,ZERO), \
+                  ((HS-2)*X-ZERO,ZERO)]
         self.routes[4][2] = Route(self.canvas, points)
 
         #Intermediate tracks
@@ -141,13 +144,13 @@ class RingenRoutes:
         points= [((HS-4)*X,ZERO), ((HS-2)*X,ZERO)]
         tmp.append(self.canvas.create_line(points))
 
-        points= [(ZERO,Y), (ZERO,(VS-1)*Y), (X,(VS*Y - ZERO)), (2*X,(VS*Y - ZERO))]
+        points= [(ZERO,Y+ZERO), (ZERO,(VS-1)*Y), (X,(VS*Y - ZERO)), (2*X,(VS*Y - ZERO))]
         tmp.append(self.canvas.create_line(points))
 
-        points= [(X,Y), (X,(VS-2)*Y), (2*X,(VS-1)*Y)]
+        points= [(X,Y+ZERO), (X,(VS-2)*Y), (2*X,(VS-1)*Y)]
         tmp.append(self.canvas.create_line(points))
 
-        points= [(2*X,Y), (2*X,(VS-3)*Y)]
+        points= [(2*X,Y+ZERO), (2*X,(VS-3)*Y-ZERO)]
         tmp.append(self.canvas.create_line(points))
 
         points= [(4*X, (VS*Y - ZERO)), (5*X, (VS*Y - ZERO))]
@@ -157,10 +160,10 @@ class RingenRoutes:
         tmp.append(self.canvas.create_line(points))
 
         points= [((HS-2)*X,(VS*Y - ZERO)), ((HS-1)*X,(VS*Y - ZERO)), ((HS*X-ZERO),(VS-1)*Y), \
-                 ((HS*X-ZERO),1*Y)]
+                 ((HS*X-ZERO),1*Y+ZERO)]
         tmp.append(self.canvas.create_line(points))
 
-        points= [((HS-1)*X,Y), ((HS-1)*X,(VS-2)*Y)]
+        points= [((HS-1)*X,Y+ZERO), ((HS-1)*X,(VS-2)*Y-ZERO)]
         tmp.append(self.canvas.create_line(points))
         
         for i in tmp:
@@ -235,7 +238,13 @@ if __name__ == '__main__':
     routes.free(1,1)
     routes.blocked(1,2)
     routes.blocked(2,4)
-
+    routes.free(4,1)
+    routes.blocked(4,2)
+    routes.free(3,2)
+    routes.blocked(3,1)
+    routes.blocked(3,3)
+    routes.blocked(3,4)
+    
     a, h = w.getRoot().maxsize()
     
     w.getRoot().mainloop()
