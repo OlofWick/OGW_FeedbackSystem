@@ -1,3 +1,6 @@
+# Compile this and other python files to improve start time
+# python3 -m py_compile myscript.py
+
 import tkinter as tk
 
 ######################################################################

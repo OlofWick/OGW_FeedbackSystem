@@ -5,6 +5,9 @@
 # sudo insserv avahi-daemon
 # sudo systemctl enable avahi-daemon
 
+# Compile this and other python files to improve start time
+# python3 -m py_compile myscript.py
+
 
 ######################################################################
 import time
