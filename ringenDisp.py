@@ -120,7 +120,7 @@ class RingenRoutes:
                   ((HS-3)*X-ZERO,(VS-1)*Y)]
         self.routes[3][3] = Route(self.canvas, points)
 
-        points = [((HS-3)*X-ZERO,(VS-1)*Y), ((HS-4)*X,(VS-1)*Y)]
+        points = [((HS-3)*X-ZERO,(VS-1)*Y), ((HS-4)*X-ZERO,(VS-1)*Y)]
         self.routes[3][4] = Route(self.canvas, points)
 
         points = [((HS-4)*X-ZERO,(VS-1)*Y), ((HS-4)*X,(VS-1)*Y), ((HS-3)*X,(VS-2)*Y)]
@@ -240,10 +240,11 @@ if __name__ == '__main__':
     routes.blocked(2,4)
     routes.free(4,1)
     routes.blocked(4,2)
-    routes.free(3,2)
+    routes.free(3,3)
+    routes.free(3,4)
     routes.blocked(3,1)
-    routes.blocked(3,3)
-    routes.blocked(3,4)
+    routes.blocked(3,2)
+    routes.blocked(3,5)
     
     a, h = w.getRoot().maxsize()
     
