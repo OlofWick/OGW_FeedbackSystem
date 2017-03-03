@@ -94,7 +94,8 @@ class RingenRoutes:
         points = [(2*X,(VS*Y - ZERO)),(3*X,(VS*Y - ZERO)), (4*X,(VS*Y - ZERO))]
         self.routes[2][1] = Route(self.canvas, points)
 
-        points = [(2*X,(VS-1)*Y),(3*X,(VS-1)*Y), (4*X,(VS*Y - ZERO))]
+        points = [(2*X,(VS-1)*Y),(3*X,(VS-1)*Y), \
+                  (4*X,(VS*Y - ZERO)), (4*X+ZERO,(VS*Y - ZERO))]
         self.routes[2][2] = Route(self.canvas, points)
 
         points = [(2*X,(VS-1)*Y),(3*X,(VS-1)*Y), (4*X,(VS-1)*Y),(5*X,(VS-1)*Y)]
@@ -174,7 +175,7 @@ class RingenRoutes:
     def free(self, groupId, routeId):
         self.routes[groupId][routeId].setFree()
     def unknown(self, groupId):
-        for i in range(5):
+        for i in range(6):
             if isinstance(self.routes[groupId][i], Route):
                 self.routes[groupId][i].setUnknown()
                 
@@ -237,7 +238,11 @@ if __name__ == '__main__':
 
     routes.free(1,1)
     routes.blocked(1,2)
+    routes.blocked(2,1)
+    routes.blocked(2,2)
+    routes.blocked(2,3)
     routes.blocked(2,4)
+    routes.blocked(2,5)
     routes.free(4,1)
     routes.blocked(4,2)
     routes.free(3,3)
@@ -245,6 +250,10 @@ if __name__ == '__main__':
     routes.blocked(3,1)
     routes.blocked(3,2)
     routes.blocked(3,5)
+    
+
+    routes.unknown(4)
+    routes.unknown(2)
     
     a, h = w.getRoot().maxsize()
     
